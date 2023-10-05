@@ -16,5 +16,38 @@
     </head>
     <body>
         test
+        <span class="test">여기에</span>
+        <script type="text/javascript" src="../js/env.js"></script>
+        <script type="module">
+            // Firebase SDK 라이브러리 가져오기
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+            import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+            // Firebase 구성 정보 설정
+            const firebaseConfig = {
+                apiKey: FIREBASE_API_KEY,
+                authDomain: "sparta1004-team6.firebaseapp.com",
+                projectId: "sparta1004-team6",
+                storageBucket: "sparta1004-team6.appspot.com",
+                messagingSenderId: FIREBASE_MESSAGINGSENDER_ID,
+                appId: FIREBASE_APP_ID,
+                measurementId: FIREBASE_MESUREMENT_ID
+            };
+
+            // Firebase 인스턴스 초기화
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+
+            $(document).ready(async function() {
+                let docs = await getDocs(collection(db, "introduce"));
+                docs.forEach((doc) => {
+                    let row = doc.data();
+                    console.log(row);
+                    $('.test').val() = row;
+                });
+            })
+        </script>
     </body>
 </html>
