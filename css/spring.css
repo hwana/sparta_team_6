@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+* {
+    font-family: 'Jua', sans-serif;
+}
+
+body {
+    background-color: rgb(225, 255, 213);
+}
+
+.wrap { 
+    margin: 1% 1% 1% 1%;    /* 테두리 */
+    background-color: rgb(225, 255, 213);
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.title_back {
+    height: 300px;
+    width: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+
+    border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
+}
+
+.title_main {
+    height: 250px;
+    width: 100%;
+    margin: 50px auto 50px auto;
+
+    background-image: url('../img/member.png');
+    background-position: center;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
+}
+
+.cards .card {
+
+    max-width: 200px;
+    max-height: 500px;
+
+    margin: 20px auto 20px 50px;
+
+    background-color: rgb(59, 253, 0);
+
+}
+
+.cards .card .card-img-top {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+
+    object-fit: cover;
+
+}
+
+.modal_postingbox {
+    width: 500px;
+    margin: 20px auto 20px auto;
+
+    border: 1px solid white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.modal-body .form {
+    margin-bottom: 10px;
+}
+
+.modal-footer .btn-group .btn {
+    margin-left: 5px;
+}
+
+.modal-footer .btn-group .btn:first-child {
+    margin-left: 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cards_table {
+    display: flex;
+    flex-wrap: wrap;
+    margin : 30px;
+    gap: 20px;
+}
+
+#modalContainer.hidden {
+    display: none;
+}
+
+.button_area{
+    display: flex;
+    justify-content: space-around;
+}
