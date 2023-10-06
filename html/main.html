@@ -33,17 +33,34 @@
             measurementId: FIREBASE_MESUREMENT_ID
         }
 
+
+
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        $(document).ready(async function() {
-            let docs = await getDocs(collection(db, "card"));
-            docs.forEach((doc) => {
-                let row = doc.data();
-                console.log(row);
-            });
-        })
+
+
+
+        let docs = await getDocs(collection(db, "cards"));
+
+        docs.forEach((doc) => {
+            let row = doc.data();
+            console.log(row);
+            let card_html = `
+                <div class="card border-success mb-3" style="max-width: 20rem;">
+                    <div class="card-header">${row['titleInput']}</div>
+                    <div class="card-body">
+                        <img src="${row['imageInput']}" class="card-img-top">
+                        <p class="card-text">${row['content']}</p>
+                    </div>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEdit" class="btn btn-secondary btn-lg"><small>Edit</small></button>
+                </div>
+            `;
+            $('.cards_table').append(card_html);
+        });
+
+
     </script>
 
 <body>
@@ -57,102 +74,42 @@
         </div>
 
         <div class="button_area">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal" class="btn btn-secondary btn-lg">NEW MEMBER🙋🏻‍♀️🙋🏻‍♂️</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreate" class="btn btn-secondary btn-lg">NEW MEMBER🙋🏻‍♀️🙋🏻‍♂️</button>
         </div>
 
-        <div class="cards_table">
-            <!-- card section 작업 예정-->
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">제목</div>
-                <div class="card-body">
-                <div class="card-title">이름</div>
-                <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                            class="card-img-top">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <!-- modal (create) -->
+        <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="modalLabel"> 멤버 카드 작성</span>
                 </div>
-            </div>
-
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">제목</div>
-                <div class="card-body">
-                <div class="card-title">이름</div>
-                <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                            class="card-img-top">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <div class="modal-body">
+                    <div class="form">
+                        <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
+                    </div>
+                    <div class="form">
+                        <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
+                    </div>
+                    <div class="form">
+                        <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
+                    </div>
                 </div>
-            </div>
-
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">제목</div>
-                <div class="card-body">
-                <div class="card-title">이름</div>
-                <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                            class="card-img-top">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">제목</div>
-                <div class="card-body">
-                <div class="card-title">이름</div>
-                <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                            class="card-img-top">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">제목</div>
-                <div class="card-body">
-                <div class="card-title">이름</div>
-                <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                            class="card-img-top">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-
-            <div class="card border-success mb-3" style="max-width: 20rem;">
-                <div class="card-header">제목</div>
-                <div class="card-body">
-                <div class="card-title">이름</div>
-                <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                            class="card-img-top">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-
-            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="modal-title" id="modalLabel"> 멤버 카드 작성</span>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form">
-                                <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
-                            </div>
-                            <div class="form">
-                                <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
-                            </div>
-                            <div class="form">
-                                <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="btn-group">
-                                <button id="addCardBtn" class="btn btn-success">저장</button>
-                                <button id="updtCardBtn" class="btn btn-warning">수정</button>
-                                <button id="updtCardBtn" class="btn btn-danger">삭제</button>
-                                <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
-                            </div>
-                        </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="Cardpassword">
+                        <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
+                    </div>
+                    <div class="btn-group">
+                        <button id="addCardBtn" class="btn btn-success">저장</button>
+                        <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
                     </div>
                 </div>
             </div>
         </div>
-    
     </div>
 
+    <div class="cards_table">
+        <!-- card section 작업 예정-->
+    </div>
+</body>
 </html>
