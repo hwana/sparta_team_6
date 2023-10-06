@@ -12,6 +12,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="../css/spring.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
     </head>
     <!-- Firebase config file -->
     <script type="text/javascript" src="../js/env.js"></script>
@@ -32,81 +33,83 @@
             measurementId: FIREBASE_MESUREMENT_ID
         }
 
+
+
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        $(document).ready(async function() {
-            let docs = await getDocs(collection(db, "card"));
-            docs.forEach((doc) => {
-                let row = doc.data();
-                console.log(row);
-            });
-        })
+
+
+
+        let docs = await getDocs(collection(db, "cards"));
+
+        docs.forEach((doc) => {
+            let row = doc.data();
+            console.log(row);
+            let card_html = `
+                <div class="card border-success mb-3" style="max-width: 20rem;">
+                    <div class="card-header">${row['titleInput']}</div>
+                    <div class="card-body">
+                        <img src="${row['imageInput']}" class="card-img-top">
+                        <p class="card-text">${row['content']}</p>
+                    </div>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEdit" class="btn btn-secondary btn-lg"><small>Edit</small></button>
+                </div>
+            `;
+            $('.cards_table').append(card_html);
+        });
+
+
     </script>
 
 <body>
-    <div class="wrap">
+    <div class="wrap alert alert-dismissible alert-success">
         <div class="title_back">
             <div class="title_main">
                 <div class="col-md-6 px-0">
-                    <h1 class="display-4 fst-italic">팀 봄</h1>
-                    <p class="lead my-3">봄을 소개합니다.</p>
-
+                    <p class="lead my-3"></p>
                 </div>
             </div>
         </div>
 
-        <div class="cards_table">
-            <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-secondary btn-lg">새로운 카드
-                작성</button>
-            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel"> 멤버 카드 작성</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form">
-                                <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
-                            </div>
-                            <div class="form">
-                                <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
-                            </div>
-                            <div class="form">
-                                <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="Cardpassword">
-                                <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
-                            </div>
-                            <div class="btn-group">
-                                <button id="addCardBtn" class="btn btn-dark">저장</button>
-                                <button id="updtCardBtn" class="btn btn-dark">...</button>
-                                <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
-                            </div>
-                        </div>
+        <div class="button_area">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreate" class="btn btn-secondary btn-lg">NEW MEMBER🙋🏻‍♀️🙋🏻‍♂️</button>
+        </div>
+
+        <!-- modal (create) -->
+        <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="modalLabel"> 멤버 카드 작성</span>
+                </div>
+                <div class="modal-body">
+                    <div class="form">
+                        <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
+                    </div>
+                    <div class="form">
+                        <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
+                    </div>
+                    <div class="form">
+                        <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="Cardpassword">
+                        <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
+                    </div>
+                    <div class="btn-group">
+                        <button id="addCardBtn" class="btn btn-success">저장</button>
+                        <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- card section 작업 예정-->
-        <div class="cards"> 
-            <div class="col">
-                <div class="card">
-                    <img src="https://e1.pngegg.com/pngimages/246/770/png-clipart-cute-pokemon-pikachu.png"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">이름 or 제목</h5>
-                        <p class="card-text">내용</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <div class="cards_table">
+        <!-- card section 작업 예정-->
+    </div>
+</body>
 </html>
