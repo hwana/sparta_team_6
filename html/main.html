@@ -23,6 +23,7 @@
 </head>
 <!-- Firebase config file -->
 <script type="text/javascript" src="../js/env.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" integrity="sha512-Mo79lrQ4UecW8OCcRUZzf0ntfMNgpOFR46Acj2ZtWO8vKhBvD79VCp3VOKSzk6TovLg5evL3Xi3u475Q/jMu4g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="module">
     /* firebase */
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -48,7 +49,6 @@
 
     docs.forEach((doc) => {
         let row = doc.data();
-        console.log(row);
         let card_html = `
                 <div class="card border-success mb-3" style="max-width: 20rem;">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -65,17 +65,78 @@
     });
 
     $(document).ready(function() {
+        // Edit 버튼 클릭시 동작
         $('.btn-edit').click(function() {
+            // docs 로부터 데이터 가져오기
             let docId = $(this).attr("id");
-            let title = $(this).parent().find('span').text(); // 가져오려는 값
-            let imageUrl = $(this).closest('.card').find('img').attr('src'); // 이미지 URL 가져오기
-            let content = $(this).closest('.card').find('.card-text').text(); // 컨텐츠 텍스트 가져오기
+            let title = $(this).parent().find('span').text();
+            let imageUrl = $(this).closest('.card').find('img').attr('src');
+            let content = $(this).closest('.card').find('.card-text').text();
 
+            // modal창 값 전달하기
             $('#targetDocID').val(docId);
             $('#imageInputEdit').val(imageUrl);
             $('#titleInputEdit').val(title);
             $('#contentInputEdit').val(content);
+
+            cnclCardBtn
+
+            // password 보이기 토글
+            $('i').on('click',function(){
+                // 누른 토글 this로 인식해서 옆 가까운 노드
+                let inputTag = $(this).closest('div').prev();
+
+                // 해당 노드의 클래스를 text 또는 password로 변경하여 값 보이기
+                inputTag.toggleClass('active');
+                if(inputTag.hasClass('active')){
+                    inputTag.attr('type', 'text')
+                }else{
+                    inputTag.attr('type', 'password')
+                }
+            });
+
+            // 수정 모달 닫았을때 입력한 password 리셋
+            $('#cnclCardBtnEdit').click(function() {
+                $('#pwdInputEdit').val("");
+            });
+
+            $('#removeCardBtn').click(function() {
+                // confirm 창으로 삭제할지 확인
+                let confirmMessage = confirm("정말 삭제하시겠습니까?");
+                if (confirmMessage == true) {
+                    // 입력한 password 값이 없을시
+                    let password = $('#pwdInputEdit').val(); 
+                    if (password == "" || password == null) {
+                        alert("비밀번호를 입력하세요.")
+                    }
+                    /* password 파이어 베이스와 대조 하고
+
+                    */
+
+                    /* 삭제 로직 추가하기
+
+                    */
+                    alert("삭제완료.");
+                }
+            });
+
+            $('#editCardBtn').click(async function() {
+                // 입력한 password 값이 없을시
+                let password = $('#pwdInputEdit').val(); 
+                if (password == "" || password == null) {
+                    alert("비밀번호를 입력하세요.")
+                }
+                /* password 파이어 베이스와 대조 하고
+
+                */
+                /* 수정 로직 추가하기
+
+                */
+                alert("수정완료.");
+            });
         })
+
+
     });
 
 
@@ -116,7 +177,8 @@
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <div class="Cardpassword">
-                            <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
+                            <!-- type password 로 지정해서 자동완성X -->
+                            <input type="password" class="form-control" id="pwdInput" placeholder="비밀번호">
                         </div>
                         <div class="btn-group">
                             <button id="addCardBtn" class="btn btn-success">저장</button>
@@ -147,13 +209,19 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
-                        <div class="Cardpassword">
-                            <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
+                        <div class="Cardpassword input-group" style="width: 200px;">
+                            <!-- type password 로 지정해서 자동완성X -->
+                            <input type="password" class="form-control" id="pwdInputEdit" placeholder="비밀번호">
+                            <div class="input-group-append">
+                                <button type="button" class="eye form-control">
+                                    <i class="fa fa-eye-slash fa-lg"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="btn-group">
-                            <button id="addCardBtn" class="btn btn-warning">수정</button>
+                            <button id="editCardBtn" class="btn btn-warning">수정</button>
                             <button id="removeCardBtn" class="btn btn-danger">삭제</button>
-                            <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
+                            <button id="cnclCardBtnEdit" class="btn btn-dark" data-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
