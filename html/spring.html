@@ -15,8 +15,9 @@
         <link rel="stylesheet" href="../css/spring.css">
     </head>
     <body>
-        test
-        <span class="test">여기에</span>
+        <input type="button" value="수정" id="update">
+
+
         <script type="text/javascript" src="../js/env.js"></script>
         <script type="module">
             // Firebase SDK 라이브러리 가져오기
@@ -24,16 +25,17 @@
             import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
             import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
             import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
+            import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            
             // Firebase 구성 정보 설정
             const firebaseConfig = {
-                apiKey: FIREBASE_API_KEY,
-                authDomain: "sparta1004-team6.firebaseapp.com",
-                projectId: "sparta1004-team6",
-                storageBucket: "sparta1004-team6.appspot.com",
-                messagingSenderId: FIREBASE_MESSAGINGSENDER_ID,
-                appId: FIREBASE_APP_ID,
-                measurementId: FIREBASE_MESUREMENT_ID
+                    // apiKey: FIREBASE_API_KEY,
+                // authDomain: "sparta1004-team6.firebaseapp.com",
+                // projectId: "sparta1004-team6",
+                // storageBucket: "sparta1004-team6.appspot.com",
+                // messagingSenderId: FIREBASE_MESSAGINGSENDER_ID,
+                // appId: FIREBASE_APP_ID,
+                // measurementId: FIREBASE_MESUREMENT_ID
             };
 
             // Firebase 인스턴스 초기화
@@ -45,9 +47,16 @@
                 docs.forEach((doc) => {
                     let row = doc.data();
                     console.log(row);
-                    $('.test').val() = row;
                 });
             })
+
+            $('#update').click(async function(){
+                await updateDoc(doc(db, "introduce", "uj4Zw8Yn3fmoaF4BLlLb"), {
+                    image: "image",
+                    name: "수정"
+                });
+                window.location.reload();
+            });
         </script>
     </body>
 </html>
