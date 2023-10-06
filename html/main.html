@@ -1,67 +1,85 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>teamSpring</title>
-        <meta charset="UTF-8">
-        <!-- jquery -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>        
 
-        <!-- bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<head>
+    <title>teamSpring</title>
+    <meta charset="UTF-8">
+    <!-- jquery -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="../css/spring.css">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-    </head>
-    <!-- Firebase config file -->
-    <script type="text/javascript" src="../js/env.js"></script>
-    <script type="module">
-        /* firebase */
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { addDoc, collection } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-        const firebaseConfig = {
-            apiKey: FIREBASE_API_KEY,
-            authDomain: "sparta1004-team6.firebaseapp.com",
-            projectId: "sparta1004-team6",
-            storageBucket: "sparta1004-team6.appspot.com",
-            messagingSenderId: FIREBASE_MESSAGINGSENDER_ID,
-            appId: FIREBASE_APP_ID,
-            measurementId: FIREBASE_MESUREMENT_ID
-        }
+    <link rel="stylesheet" href="../css/spring.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<!-- Firebase config file -->
+<script type="text/javascript" src="../js/env.js"></script>
+<script type="module">
+    /* firebase */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { addDoc, collection } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+    const firebaseConfig = {
+        apiKey: FIREBASE_API_KEY,
+        authDomain: "sparta1004-team6.firebaseapp.com",
+        projectId: "sparta1004-team6",
+        storageBucket: "sparta1004-team6.appspot.com",
+        messagingSenderId: FIREBASE_MESSAGINGSENDER_ID,
+        appId: FIREBASE_APP_ID,
+        measurementId: FIREBASE_MESUREMENT_ID
+    }
 
+    // Firebase 인스턴스 초기화
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        // Firebase 인스턴스 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    let docs = await getDocs(collection(db, "members"));
 
-
-
-
-        let docs = await getDocs(collection(db, "cards"));
-
-        docs.forEach((doc) => {
-            let row = doc.data();
-            console.log(row);
-            let card_html = `
+    docs.forEach((doc) => {
+        let row = doc.data();
+        console.log(row);
+        let card_html = `
                 <div class="card border-success mb-3" style="max-width: 20rem;">
-                    <div class="card-header">${row['titleInput']}</div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>${row['title']}</span>
+                        <button type="button" id="${doc.id}" class="btn-edit btn btn-success" data-toggle="modal" data-target="#modalEdit" class="btn btn-secondary btn-lg"><small>Edit</small></button>
+                    </div>
                     <div class="card-body">
-                        <img src="${row['imageInput']}" class="card-img-top">
+                        <img src="${row['image']}" class="card-img-top">
                         <p class="card-text">${row['content']}</p>
                     </div>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEdit" class="btn btn-secondary btn-lg"><small>Edit</small></button>
                 </div>
             `;
-            $('.cards_table').append(card_html);
-        });
+        $('.cards_table').append(card_html);
+    });
+
+    $(document).ready(function() {
+        $('.btn-edit').click(function() {
+            let docId = $(this).attr("id");
+            let title = $(this).parent().find('span').text(); // 가져오려는 값
+            let imageUrl = $(this).closest('.card').find('img').attr('src'); // 이미지 URL 가져오기
+            let content = $(this).closest('.card').find('.card-text').text(); // 컨텐츠 텍스트 가져오기
+
+            $('#targetDocID').val(docId);
+            $('#imageInputEdit').val(imageUrl);
+            $('#titleInputEdit').val(title);
+            $('#contentInputEdit').val(content);
+        })
+    });
 
 
-    </script>
+</script>
 
 <body>
     <div class="wrap alert alert-dismissible alert-success">
@@ -74,42 +92,76 @@
         </div>
 
         <div class="button_area">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreate" class="btn btn-secondary btn-lg">NEW MEMBER🙋🏻‍♀️🙋🏻‍♂️</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreate"
+                class="btn btn-secondary btn-lg">NEW MEMBER🙋🏻‍♀️🙋🏻‍♂️</button>
         </div>
 
         <!-- modal (create) -->
         <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="modal-title" id="modalLabel"> 멤버 카드 작성</span>
-                </div>
-                <div class="modal-body">
-                    <div class="form">
-                        <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="modal-title" id="modalLabel"> 멤버 카드 작성</span>
                     </div>
-                    <div class="form">
-                        <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
+                    <div class="modal-body">
+                        <div class="form">
+                            <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
+                        </div>
+                        <div class="form">
+                            <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
+                        </div>
+                        <div class="form">
+                            <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
+                        </div>
                     </div>
-                    <div class="form">
-                        <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-between">
-                    <div class="Cardpassword">
-                        <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
-                    </div>
-                    <div class="btn-group">
-                        <button id="addCardBtn" class="btn btn-success">저장</button>
-                        <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <div class="Cardpassword">
+                            <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
+                        </div>
+                        <div class="btn-group">
+                            <button id="addCardBtn" class="btn btn-success">저장</button>
+                            <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="cards_table">
-        <!-- card section 작업 예정-->
-    </div>
+        <!-- modal (edit) -->
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <input type="text" id="targetDocID" class="d-none">
+                    <div class="modal-header">
+                        <span class="modal-title" id="modalLabel"> 멤버 카드 편집</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form">
+                            <input type="url" class="form-control" id="imageInputEdit" placeholder="사진 이미지 url">
+                        </div>
+                        <div class="form">
+                            <input type="text" class="form-control" id="titleInputEdit" placeholder="이름 or 제목">
+                        </div>
+                        <div class="form">
+                            <textarea class="form-control" id="contentInputEdit" rows="7" placeholder="내용"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <div class="Cardpassword">
+                            <input type="text" class="form-control" id="pwdInput" placeholder="비밀번호">
+                        </div>
+                        <div class="btn-group">
+                            <button id="addCardBtn" class="btn btn-warning">수정</button>
+                            <button id="removeCardBtn" class="btn btn-danger">삭제</button>
+                            <button id="cnclCardBtn" class="btn btn-dark" data-dismiss="modal">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cards_table">
+            <!-- card section 작업 예정-->
+        </div>
 </body>
 </html>
