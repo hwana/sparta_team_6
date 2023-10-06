@@ -1,3 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
+* {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
 body {
-    background-color: antiquewhite;
+    background-color: black;
+}
+
+.wrap { 
+    margin: 1% 1% 1% 1%;    /* 테두리 */
+    background-color: rgb(116, 56, 0);
+}
+
+.title_back {
+    height: 300px;
+    width: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+
+    background-color: rgba(46, 161, 255, 0.89);
+}
+
+.title_main {
+    background-color: yellow;
+    color: rgb(105, 63, 63);
+
+    height: 250px;
+    width: 100%;
+    margin: 50px auto 50px auto;
+
+    background-image: url('https://img.freepik.com/premium-photo/young-sprout-in-springtime_33836-9.jpg');
+    background-position: center;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.cards .card {
+
+    max-width: 200px;
+    max-height: 500px;
+
+    margin: 20px auto 20px 50px;
+
+    background-color: rgb(59, 253, 0);
+
+}
+
+.cards .card .card-img-top {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+
+    object-fit: cover;
+
+}
+
+.modal_postingbox {
+
+    background-color: blueviolet;
+
+    width: 500px;
+    margin: 20px auto 20px auto;
+
+    border: 1px solid white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.modal-body .form {
+    margin-bottom: 10px;
+}
+
+.modal-content {
+    background-color: #bb71f7;
+}
+
+.modal-footer .btn-group .btn {
+    margin-left: 5px;
+}
+
+.modal-footer .btn-group .btn:first-child {
+    margin-left: 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cards_table {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#modalContainer.hidden {
+    display: none;
 }
