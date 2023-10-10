@@ -139,6 +139,7 @@
         let mbti = row.mbti;
         // mbtiColor 메소드를 통해 color 지정 및 변환
         let color = mbtiColor(mbti);
+        console.log(row);
     
         let card_html = `
                 <div class="card border-success mb-3" style="max-width: 20rem;">
@@ -147,7 +148,7 @@
                             <span>${row['title']}</span>
                             <small id="mbti" style="color : ${color}">${row['mbti']}<small>
                         </div>
-                        <button type="button" class="btn-blog btn btn-link" onclick="window.open('${row['blog']}')"><small>blog</small></button>
+                        <button type="button" class="btn-blog btn btn-link" onclick="window.open('${row['blogUrl']}')"><small>blog</small></button>
                         <button type="button" id="${doc.id}" class="btn-edit btn btn-success" data-toggle="modal" data-target="#modalEdit"><small>Edit</small></button>
                     </div>
                     <div class="card-body">
