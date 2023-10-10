@@ -189,6 +189,8 @@ body {
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
+/* new member mbti color */
+
 #mbtiInput option[value="ISTJ"] {
     color: #BA55D3;
 }
@@ -218,7 +220,7 @@ body {
 }
 
 #mbtiInput option[value="INTP"] {
-    color: #E6E6FA;
+    color: #00BFFF;
 }
 
 #mbtiInput option[value="ESTP"] {
@@ -250,5 +252,71 @@ body {
 }
 
 #mbtiInput option[value="ENTJ"] {
+    color: #F5FFFA;
+}
+
+/* edit member mbti color */
+
+#mbtiInputEdit option[value="ISTJ"] {
+    color: #BA55D3;
+}
+
+#mbtiInputEdit option[value="ISFJ"] {
+    color: #98FB98;
+}
+
+#mbtiInputEdit option[value="INFJ"] {
+    color: #F4A460;
+}
+
+#mbtiInputEdit option[value="INTJ"] {
+    color: #C71585;
+}
+
+#mbtiInputEdit option[value="ISTP"] {
+    color: #696969;
+}
+
+#mbtiInputEdit option[value="ISFP"] {
+    color: #87CEEB;
+}
+
+#mbtiInputEdit option[value="INFP"] {
+    color: #FFD700;
+}
+
+#mbtiInputEdit option[value="INTP"] {
+    color: #00BFFF;
+}
+
+#mbtiInputEdit option[value="ESTP"] {
+    color: #000000;
+}
+
+#mbtiInputEdit option[value="ESFP"] {
+    color: #EE82EE;
+}
+
+#mbtiInputEdit option[value="ENFP"] {
+    color: #FFB6C1;
+}
+
+#mbtiInputEdit option[value="ENTP"] {
+    color: #0000FF;
+}
+
+#mbtiInputEdit option[value="ESTJ"] {
+    color: #FFA500;
+}
+
+#mbtiInputEdit option[value="ESFJ"] {
+    color: #FFFF00;
+}
+
+#mbtiInputEdit option[value="ENFJ"] {
+    color: #808080;
+}
+
+#mbtiInputEdit option[value="ENTJ"] {
     color: #F5FFFA;
 }
