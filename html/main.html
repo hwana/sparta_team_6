@@ -99,7 +99,7 @@
             let content = $('#contentInput').val();
             let pwd = $('#pwdInput').val();
             let blogUrl = $('#blogInput').val();
-            let mbti = $('#mbtiInput').val();
+            let mbti = $('#mbtiInput').val;
 
             let checkinput = checkInput();
             if (!checkinput) {
@@ -220,23 +220,23 @@
         <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content border-success">
                     <div class="modal-header">
                         <span class="modal-title" id="modalLabel"> 멤버 카드 작성</span>
                     </div>
                     <div class="modal-body">
                         <div class="form">
-                            <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
+                            <input type="url" class="form-control border-success" id="imageInput" placeholder="사진 이미지 url">
                         </div>
 
                         <div class="name-mbti">
                             <div class="form-name">
                                 
-                                    <input type="text" class="form-control" id="titleInput" placeholder="이름">
+                                    <input type="text" class="form-control border-success" id="titleInput" placeholder="이름">
                                 
                                 
                             </div>
-                            <select id="mbtiInput" class="form-select" aria-label="Mbti">
+                            <select id="mbtiInput" class="form-select border-success" aria-label="mbti">
                                 <option selected>MBTI</option>
                                 <option value="ISTJ">- ISTJ</option>
                                 <option value="ISFJ">- ISFJ</option>
@@ -259,19 +259,19 @@
                         </div>
 
                         <div class="form">
-                            <input type="text" class="form-control" id="blogInput" placeholder="블로그 주소">
+                            <input type="text" class="form-control border-success" id="blogInput" placeholder="블로그 주소">
                         </div>
 
 
 
                         <div class="form-content">
-                            <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
+                            <textarea class="form-control border-success" id="contentInput" rows="7" placeholder="내용"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <div class="Cardpassword">
                             <!-- type password 로 지정해서 자동완성X -->
-                            <input type="password" class="form-control" id="pwdInput" placeholder="비밀번호">
+                            <input type="password" class="form-control border-success" id="pwdInput" placeholder="비밀번호">
                         </div>
                         <div class="btn-group">
                             <button id="addCardBtn" class="btn btn-success">저장</button>
@@ -293,21 +293,21 @@
                     </div>
                     <div class="modal-body">
                         <div class="form">
-                            <input type="url" class="form-control" id="imageInputEdit" placeholder="사진 이미지 url">
+                            <input type="url" class="form-control border-success" id="imageInputEdit" placeholder="사진 이미지 url">
                         </div>
                         <div class="form">
-                            <input type="text" class="form-control" id="titleInputEdit" placeholder="이름 or 제목">
+                            <input type="text" class="form-control border-success" id="titleInputEdit" placeholder="이름 or 제목">
                         </div>
                         <div class="form">
-                            <textarea class="form-control" id="contentInputEdit" rows="7" placeholder="내용"></textarea>
+                            <textarea class="form-control border-success" id="contentInputEdit" rows="7" placeholder="내용"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <div class="Cardpassword input-group" style="width: 200px;">
                             <!-- type password 로 지정해서 자동완성X -->
-                            <input type="password" class="form-control" id="pwdInputEdit" placeholder="비밀번호">
+                            <input type="password" class="form-control border-success" id="pwdInputEdit" placeholder="비밀번호">
                             <div class="input-group-append">
-                                <button type="button" class="eye form-control">
+                                <button type="button" class="eye form-control border-success">
                                     <i class="fa fa-eye-slash fa-lg"></i>
                                 </button>
                             </div>
