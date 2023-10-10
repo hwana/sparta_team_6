@@ -111,7 +111,7 @@
             await addDoc(collection(db, "members"), doc);
             alert('우리 팀에 어서와!');
             window.location.reload();
-        })
+        });
         
         // Edit 버튼 클릭시 동작
         $('.btn-edit').click(function () {
@@ -127,75 +127,72 @@
             $('#titleInputEdit').val(title);
             $('#contentInputEdit').val(content);
 
-            // password 보이기 토글
-            $('i').on('click', function () {
-                // 누른 토글 this로 인식해서 옆 가까운 노드
-                let inputTag = $(this).closest('div').prev();
+        });
 
-                // 해당 노드의 클래스를 text 또는 password로 변경하여 값 보이기
-                inputTag.toggleClass('active');
-                if (inputTag.hasClass('active')) {
-                    inputTag.attr('type', 'text')
-                } else {
-                    inputTag.attr('type', 'password')
-                }
-            });
+        // password 보이기 토글
+        $('i').on('click', function () {
+            // 누른 토글 this로 인식해서 옆 가까운 노드
+            let inputTag = $(this).closest('div').prev();
 
-            // 수정 모달 닫았을때 입력한 password 리셋
-            $('#cnclCardBtnEdit').click(function () {
-                $('#pwdInputEdit').val("");
-            });
+            // 해당 노드의 클래스를 text 또는 password로 변경하여 값 보이기
+            inputTag.toggleClass('active');
+            if (inputTag.hasClass('active')) {
+                inputTag.attr('type', 'text')
+            } else {
+                inputTag.attr('type', 'password')
+            }
+        });
 
-            $('#removeCardBtn').click(function () {
-                // confirm 창으로 삭제할지 확인
-                let confirmMessage = confirm("정말 삭제하시겠습니까?");
-                if (confirmMessage == true) {
-                    // 입력한 password 값이 없을시
-                    let password = $('#pwdInputEdit').val();
-                    if (password == "" || password == null) {
-                        alert("비밀번호를 입력하세요.")
-                    }
-                    /* password 파이어 베이스와 대조 하고
+        // 수정 모달 닫았을때 입력한 password 리셋
+        $('#cnclCardBtnEdit').click(function () {
+            $('#pwdInputEdit').val("");
+        });
 
-                    */
-
-                    /* 삭제 로직 추가하기
-
-                    */
-                    alert("삭제완료.");
-                }
-            });
-
-            $('#editCardBtn').click(async function () {
+        $('#removeCardBtn').click(function () {
+            // confirm 창으로 삭제할지 확인
+            let confirmMessage = confirm("정말 삭제하시겠습니까?");
+            if (confirmMessage == true) {
                 // 입력한 password 값이 없을시
                 let password = $('#pwdInputEdit').val();
                 if (password == "" || password == null) {
                     alert("비밀번호를 입력하세요.")
-                }else{
-                    let docId = $('#targetDocID').val();
-                    let docSnap = await getDoc(doc(db, "members", docId));
-                    let dbPwd = docSnap.data()['pwd'];
-
-                    if(dbPwd === password){
-                        await updateDoc(doc(db, "members", docId), {
-                            image: $('#imageInputEdit').val(),
-                            title : $('#titleInputEdit').val(),
-                            content : $('#contentInputEdit').val()
-                        });
-                        alert("수정 완료!");
-                        window.location.reload();
-                    }else{
-                        alert("비밀번호가 일치하지 않습니다.");
-                        return false;
-                    }
                 }
-            });
-        })
+                /* password 파이어 베이스와 대조 하고
 
+                */
 
+                /* 삭제 로직 추가하기
+
+                */
+                alert("삭제완료.");
+            }
+        });
+
+        $('#editCardBtn').click(async function () {
+            // 입력한 password 값이 없을시
+            let password = $('#pwdInputEdit').val();
+            if (password == "" || password == null) {
+                alert("비밀번호를 입력하세요.")
+            }else{
+                let docId = $('#targetDocID').val();
+                let docSnap = await getDoc(doc(db, "members", docId));
+                let dbPwd = docSnap.data()['pwd'];
+
+                if(dbPwd === password){
+                    await updateDoc(doc(db, "members", docId), {
+                        image: $('#imageInputEdit').val(),
+                        title : $('#titleInputEdit').val(),
+                        content : $('#contentInputEdit').val()
+                    });
+                    alert("수정 완료!");
+                    window.location.reload();
+                }else{
+                    alert("비밀번호가 일치하지 않습니다.");
+                    return false;
+                }
+            }
+        });
     });
-
-
 </script>
 
 <body>
