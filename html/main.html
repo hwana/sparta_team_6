@@ -23,7 +23,9 @@
 </head>
 <!-- Firebase config file -->
 <script type="text/javascript" src="../js/env.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" integrity="sha512-Mo79lrQ4UecW8OCcRUZzf0ntfMNgpOFR46Acj2ZtWO8vKhBvD79VCp3VOKSzk6TovLg5evL3Xi3u475Q/jMu4g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"
+    integrity="sha512-Mo79lrQ4UecW8OCcRUZzf0ntfMNgpOFR46Acj2ZtWO8vKhBvD79VCp3VOKSzk6TovLg5evL3Xi3u475Q/jMu4g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="module">
     /* firebase */
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -64,14 +66,93 @@
         $('.cards_table').append(card_html);
     });
 
-    $(document).ready(function() {
+    // 무결성 검사
+    function checkInput() {
+        let image = $('#imageInput').val();
+        let title = $('#titleInput').val();
+        let content = $('#contentInput').val();
+        let pwd = $('#pwdInput').val();
+
+        if (!image || !title || !content || !pwd) {
+            alert("빈칸을 채워주세요");
+            return false;
+        }
+
+        return {
+            image,
+            title,
+            content,
+            pwd
+        };
+    }
+
+    // 데이터 저장
+    $(document).ready(async function () {
+        $("#addCardBtn").click(async function () {
+
+            let image = $('#imageInput').val();
+            let title = $('#titleInput').val();
+            let content = $('#contentInput').val();
+            let pwd = $('#pwdInput').val();
+
+            let checkinput = checkInput();
+            if (!checkinput) {
+                return;
+            }
+
+            let doc = {
+                'image': image,
+                'title': title,
+                'content': content,
+                'pwd': pwd
+            };
+            await addDoc(collection(db, "members"), doc);
+            alert('우리 팀에 어서와!');
+            window.location.reload();
+        })
+
+
+
+        try {
+            let docs = await getDocs(collection(db, "members"));
+            docs.forEach((doc) => {
+                let row = doc.data();
+
+                let image = row.image;
+                let title = row.title;
+                let content = row.content;
+
+                //xxs 방지
+                let card = $('<div>').addClass('card border-success mb-3').css('max-width', '20rem');
+                let cardHeader = $('<div>').addClass('card-header').text(title);
+                let cardBody = $('<div>').addClass('card-body');
+                let imgContainer = $('<div>').addClass('img-container');
+                let cardImage = $('<img>').addClass('card-img-top').attr('src', image);
+                let cardText = $('<p>').addClass('card-text').text(content);
+
+                imgContainer.append(cardImage);
+                cardBody.append(imgContainer).append(cardText);
+                card.append(cardHeader).append(cardBody);
+                //xxs
+
+
+                $('.cards_table').append(temp_html);
+            });
+        } catch (error) {
+            alert("데이터를 가져오는데 실패했습니다: " + error);
+        }
+    });
+
+    $(document).ready(function () {
         // Edit 버튼 클릭시 동작
-        $('.btn-edit').click(function() {
+        $('.btn-edit').click(function () {
             // docs 로부터 데이터 가져오기
             let docId = $(this).attr("id");
             let title = $(this).parent().find('span').text();
             let imageUrl = $(this).closest('.card').find('img').attr('src');
             let content = $(this).closest('.card').find('.card-text').text();
+
+
 
             // modal창 값 전달하기
             $('#targetDocID').val(docId);
@@ -79,33 +160,34 @@
             $('#titleInputEdit').val(title);
             $('#contentInputEdit').val(content);
 
-            cnclCardBtn
+
+
 
             // password 보이기 토글
-            $('i').on('click',function(){
+            $('i').on('click', function () {
                 // 누른 토글 this로 인식해서 옆 가까운 노드
                 let inputTag = $(this).closest('div').prev();
 
                 // 해당 노드의 클래스를 text 또는 password로 변경하여 값 보이기
                 inputTag.toggleClass('active');
-                if(inputTag.hasClass('active')){
+                if (inputTag.hasClass('active')) {
                     inputTag.attr('type', 'text')
-                }else{
+                } else {
                     inputTag.attr('type', 'password')
                 }
             });
 
             // 수정 모달 닫았을때 입력한 password 리셋
-            $('#cnclCardBtnEdit').click(function() {
+            $('#cnclCardBtnEdit').click(function () {
                 $('#pwdInputEdit').val("");
             });
 
-            $('#removeCardBtn').click(function() {
+            $('#removeCardBtn').click(function () {
                 // confirm 창으로 삭제할지 확인
                 let confirmMessage = confirm("정말 삭제하시겠습니까?");
                 if (confirmMessage == true) {
                     // 입력한 password 값이 없을시
-                    let password = $('#pwdInputEdit').val(); 
+                    let password = $('#pwdInputEdit').val();
                     if (password == "" || password == null) {
                         alert("비밀번호를 입력하세요.")
                     }
@@ -120,9 +202,9 @@
                 }
             });
 
-            $('#editCardBtn').click(async function() {
+            $('#editCardBtn').click(async function () {
                 // 입력한 password 값이 없을시
-                let password = $('#pwdInputEdit').val(); 
+                let password = $('#pwdInputEdit').val();
                 if (password == "" || password == null) {
                     alert("비밀번호를 입력하세요.")
                 }
@@ -158,7 +240,8 @@
         </div>
 
         <!-- modal (create) -->
-        <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -190,7 +273,8 @@
         </div>
 
         <!-- modal (edit) -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <input type="text" id="targetDocID" class="d-none">
@@ -232,4 +316,5 @@
             <!-- card section 작업 예정-->
         </div>
 </body>
+
 </html>
