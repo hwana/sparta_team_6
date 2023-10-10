@@ -133,10 +133,8 @@
     docs.forEach((doc) => {
         let row = doc.data();
         let mbti = row.mbti;
-
+        // mbtiColor 메소드를 통해 color 지정 및 변환
         let color = mbtiColor(mbti);
-
-        console.log(color);
 
         let card_html = `
                 <div class="card border-success mb-3" style="max-width: 20rem;">
