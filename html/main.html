@@ -72,65 +72,64 @@
         };
     }
 
-    function mbtiColor(mbti) {
-        let color = "";
-        switch (mbti) {
-            case "ISTJ":
-                color = "#BA55D3";
-                break;
-            case "ISFJ":
-                color = "#98FB98";
-                break;
-            case "INFJ":
-                color = "#F4A460";
-                break;
-            case "INTJ":
-                color = "#C71585";
-                break;
-            case "ISTP":
-                color = "#696969";
-                break;
-            case "ISFP":
-                color = "#87CEEB";
-                break;
-            case "INFP":
-                color = "#FFD700";
-                break;
-            case "INTP":
-                color = "#E6E6FA";
-                break;
-            case "ESTP":
-                color = "#000000";
-                break;
-            case "ESFP":
-                color = "#EE82EE";
-                break;
-            case "ENTP":
-                color = "#0000FF";
-                break;
-            case "ENFP":
-                color = "#FFB6C1";
-                break;
-            case "ESTJ":
-                color = "#FFA500";
-                break;
-            case "ESFJ":
-                color = "#FFFF00";
-                break;
-            case "ENFJ":
-                color = "#808080";
-                break;
-            case "ENTJ":
-                color = "#F5FFFA";
-                break;
-            default:
-                color = "black";
-        }
-        return color; // 이 위치로 이동
-    }
-
-
     docs.forEach((doc) => {
+        function mbtiColor(mbti) {
+            let color = "";
+            switch (mbti) {
+                case "ISTJ":
+                    color = "#BA55D3";
+                    break;
+                case "ISFJ":
+                    color = "#98FB98";
+                    break;
+                case "INFJ":
+                    color = "#F4A460";
+                    break;
+                case "INTJ":
+                    color = "#C71585";
+                    break;
+                case "ISTP":
+                    color = "#696969";
+                    break;
+                case "ISFP":
+                    color = "#87CEEB";
+                    break;
+                case "INFP":
+                    color = "#FFD700";
+                    break;
+                case "INTP":
+                    color = "#E6E6FA";
+                    break;
+                case "ESTP":
+                    color = "#000000";
+                    break;
+                case "ESFP":
+                    color = "#EE82EE";
+                    break;
+                case "ENTP":
+                    color = "#0000FF";
+                    break;
+                case "ENFP":
+                    color = "#FFB6C1";
+                    break;
+                case "ESTJ":
+                    color = "#FFA500";
+                    break;
+                case "ESFJ":
+                    color = "#FFFF00";
+                    break;
+                case "ENFJ":
+                    color = "#808080";
+                    break;
+                case "ENTJ":
+                    color = "#F5FFFA";
+                    break;
+                default:
+                    color = "black";
+            }
+            return color; // 이 위치로 이동
+        }
+
         let row = doc.data();
         let mbti = row.mbti;
         // mbtiColor 메소드를 통해 color 지정 및 변환
