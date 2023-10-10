@@ -58,7 +58,8 @@
         let title = $('#titleInput').val();
         let content = $('#contentInput').val();
         let pwd = $('#pwdInput').val();
-        let blog = $('#blogInput')
+        let blog = $('#blogInput').val();
+        let mbti = $('#mbtiInput').val();
 
         if (!image || !title || !content || !pwd) {
             alert("빈칸을 채워주세요");
@@ -167,7 +168,7 @@
             let content = $('#contentInput').val();
             let pwd = $('#pwdInput').val();
             let blogUrl = $('#blogInput').val();
-            let mbti = $('#mbtiInput').val;
+            let mbti = $('#mbtiInput').val();
 
             let checkinput = checkInput();
             if (!checkinput) {
@@ -242,18 +243,16 @@
                 let password = $('#pwdInputEdit').val();
                 if (password == "" || password == null) {
                     alert("비밀번호를 입력하세요.")
-                }
-                if (dbPwd === password) {
-                    const onDelete = async () => {
+                }else{
+                    if (dbPwd === password) {
                         await deleteDoc(doc(db, "members", docId)); // 여기서 id는 수정할 문서의 ID 값
-                    };
-                    alert("삭제 되었습니다")
-                    window.location.reload();
-                } else {
-                    alert("비밀번호가 틀렸습니다")
+                        alert("삭제 되었습니다")
+                        window.location.reload();
+                    } else {
+                        alert("비밀번호가 틀렸습니다")
+                    }
                 }
             };
-            alert("삭제완료.");
         });
 
         $('#editCardBtn').click(async function () {
