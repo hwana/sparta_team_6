@@ -49,24 +49,7 @@
 
     let docs = await getDocs(collection(db, "members"));
 
-    docs.forEach((doc) => {
-        let row = doc.data();
-        let card_html = `
-                <div class="card border-success mb-3" style="max-width: 20rem;">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>${row['title']}</span>
-                        <button type="button" id="${doc.id}" class="btn-edit btn btn-success" data-toggle="modal" data-target="#modalEdit" class="btn btn-secondary btn-lg"><small>Edit</small></button>
-                    </div>
-                    <div class="card-body">
-                        <img src="${row['image']}" class="card-img-top">
-                        <p class="card-text">${row['content']}</p>
-                    </div>
-                </div>
-            `;
-        $('.cards_table').append(card_html);
-    });
-
-    // 무결성 검사
+    // 데이터 저장 빈칸 검사
     function checkInput() {
         let image = $('#imageInput').val();
         let title = $('#titleInput').val();
@@ -86,8 +69,27 @@
         };
     }
 
-    // 데이터 저장
-    $(document).ready(async function () {
+
+
+    docs.forEach((doc) => {
+        let row = doc.data();
+        let card_html = `
+                <div class="card border-success mb-3" style="max-width: 20rem;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>${row['title']}</span>
+                        <button type="button" id="${doc.id}" class="btn-edit btn btn-success" data-toggle="modal" data-target="#modalEdit" class="btn btn-secondary btn-lg"><small>Edit</small></button>
+                    </div>
+                    <div class="card-body">
+                        <img src="${row['image']}" class="card-img-top">
+                        <p class="card-text">${row['content']}</p>
+                    </div>
+                </div>
+            `;
+        $('.cards_table').append(card_html);
+    });
+
+    $(document).ready(function () {
+        // 멤버 작성하기 
         $("#addCardBtn").click(async function () {
 
             let image = $('#imageInput').val();
@@ -110,40 +112,7 @@
             alert('우리 팀에 어서와!');
             window.location.reload();
         })
-
-
-
-        try {
-            let docs = await getDocs(collection(db, "members"));
-            docs.forEach((doc) => {
-                let row = doc.data();
-
-                let image = row.image;
-                let title = row.title;
-                let content = row.content;
-
-                //xxs 방지
-                let card = $('<div>').addClass('card border-success mb-3').css('max-width', '20rem');
-                let cardHeader = $('<div>').addClass('card-header').text(title);
-                let cardBody = $('<div>').addClass('card-body');
-                let imgContainer = $('<div>').addClass('img-container');
-                let cardImage = $('<img>').addClass('card-img-top').attr('src', image);
-                let cardText = $('<p>').addClass('card-text').text(content);
-
-                imgContainer.append(cardImage);
-                cardBody.append(imgContainer).append(cardText);
-                card.append(cardHeader).append(cardBody);
-                //xxs
-
-
-                $('.cards_table').append(temp_html);
-            });
-        } catch (error) {
-            alert("데이터를 가져오는데 실패했습니다: " + error);
-        }
-    });
-
-    $(document).ready(function () {
+        
         // Edit 버튼 클릭시 동작
         $('.btn-edit').click(function () {
             // docs 로부터 데이터 가져오기
@@ -152,16 +121,13 @@
             let imageUrl = $(this).closest('.card').find('img').attr('src');
             let content = $(this).closest('.card').find('.card-text').text();
 
-
-
             // modal창 값 전달하기
             $('#targetDocID').val(docId);
             $('#imageInputEdit').val(imageUrl);
             $('#titleInputEdit').val(title);
             $('#contentInputEdit').val(content);
 
-
-
+            cnclCardBtn
 
             // password 보이기 토글
             $('i').on('click', function () {
