@@ -184,3 +184,71 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
+#mbtiInput option {
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+
+#mbtiInput option[value="ISTJ"] {
+    color: #BA55D3;
+}
+
+#mbtiInput option[value="ISFJ"] {
+    color: #98FB98;
+}
+
+#mbtiInput option[value="INFJ"] {
+    color: #F4A460;
+}
+
+#mbtiInput option[value="INTJ"] {
+    color: #C71585;
+}
+
+#mbtiInput option[value="ISTP"] {
+    color: #696969;
+}
+
+#mbtiInput option[value="ISFP"] {
+    color: #87CEEB;
+}
+
+#mbtiInput option[value="INFP"] {
+    color: #FFD700;
+}
+
+#mbtiInput option[value="INTP"] {
+    color: #E6E6FA;
+}
+
+#mbtiInput option[value="ESTP"] {
+    color: #000000;
+}
+
+#mbtiInput option[value="ESFP"] {
+    color: #EE82EE;
+}
+
+#mbtiInput option[value="ENFP"] {
+    color: #FFB6C1;
+}
+
+#mbtiInput option[value="ENTP"] {
+    color: #0000FF;
+}
+
+#mbtiInput option[value="ESTJ"] {
+    color: #FFA500;
+}
+
+#mbtiInput option[value="ESFJ"] {
+    color: #FFFF00;
+}
+
+#mbtiInput option[value="ENFJ"] {
+    color: #808080;
+}
+
+#mbtiInput option[value="ENTJ"] {
+    color: #F5FFFA;
+}
