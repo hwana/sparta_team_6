@@ -74,8 +74,7 @@
         };
     }
 
-    docs.forEach((doc) => {
-        function mbtiColor(mbti) {
+    function mbtiColor(mbti) {
             let color = "";
             switch (mbti) {
                 case "ISTJ":
@@ -132,6 +131,9 @@
             return color; // 이 위치로 이동
         }
 
+
+    docs.forEach((doc) => {
+
         let row = doc.data();
         let mbti = row.mbti;
         // mbtiColor 메소드를 통해 color 지정 및 변환
@@ -144,7 +146,7 @@
                             <span>${row['title']}</span>
                             <small id="mbti" style="color : ${color}">${row['mbti']}<small>
                         </div>
-                        <button type="button" class="btn-blog btn btn-link" onclick="window.open('https://naver.com ')"><small>blog</small></button>
+                        <button type="button" class="btn-blog btn btn-link" onclick="window.open('${row['blog']}')"><small>blog</small></button>
                         <button type="button" id="${doc.id}" class="btn-edit btn btn-success" data-toggle="modal" data-target="#modalEdit"><small>Edit</small></button>
                     </div>
                     <div class="card-body">
@@ -186,18 +188,27 @@
         });
 
         // Edit 버튼 클릭시 동작
-        $('.btn-edit').click(function () {
+        $('.btn-edit').click(async function () {
             // docs 로부터 데이터 가져오기
+            // 노드 접근식
             let docId = $(this).attr("id");
-            let title = $(this).parent().find('span').text();
             let imageUrl = $(this).closest('.card').find('img').attr('src');
             let content = $(this).closest('.card').find('.card-text').text();
+
+            // firebase 메소드 이용식
+            let docSnap = await getDoc(doc(db, "members", docId));
+            let title = docSnap.data()['title'];
+            let mbti = docSnap.data()['mbti'];
+            let blogUrl = docSnap.data()['blogUrl'];
+
 
             // modal창 값 전달하기
             $('#targetDocID').val(docId);
             $('#imageInputEdit').val(imageUrl);
             $('#titleInputEdit').val(title);
             $('#contentInputEdit').val(content);
+            $('#blogInputEdit').val(blogUrl);
+            $('#mbtiInputEdit').val(mbti);
 
         });
 
@@ -231,17 +242,15 @@
                 let password = $('#pwdInputEdit').val();
                 if (password == "" || password == null) {
                     alert("비밀번호를 입력하세요.")
-                    window.location.reload()
                 }
                 if (dbPwd === password) {
                     const onDelete = async () => {
-                        await deleteDoc(doc(db, "members", id)); // 여기서 id는 수정할 문서의 ID 값
+                        await deleteDoc(doc(db, "members", docId)); // 여기서 id는 수정할 문서의 ID 값
                     };
                     alert("삭제 되었습니다")
                     window.location.reload();
                 } else {
                     alert("비밀번호가 틀렸습니다")
-                    window.location.reload();
                 }
             };
             alert("삭제완료.");
@@ -261,7 +270,9 @@
                     await updateDoc(doc(db, "members", docId), {
                         image: $('#imageInputEdit').val(),
                         title: $('#titleInputEdit').val(),
-                        content: $('#contentInputEdit').val()
+                        content: $('#contentInputEdit').val(),
+                        blogUrl: $('#blogInputEdit').val(),
+                        mbti: $('#mbtiInputEdit').val()
                     });
                     alert("수정 완료!");
                     window.location.reload();
@@ -368,10 +379,40 @@
                         <div class="form">
                             <input type="url" class="form-control border-success" id="imageInputEdit" placeholder="사진 이미지 url">
                         </div>
-                        <div class="form">
-                            <input type="text" class="form-control border-success" id="titleInputEdit" placeholder="이름 or 제목">
+
+                        <div class="name-mbti">
+                            <div class="form-name">                                
+                                    <input type="text" class="form-control border-success" id="titleInputEdit" placeholder="이름">                                        
+                            </div>
+                            <select id="mbtiInputEdit" class="form-select border-success" aria-label="mbti">
+                                <option selected>MBTI</option>
+                                <option value="ISTJ">- ISTJ</option>
+                                <option value="ISFJ">- ISFJ</option>
+                                <option value="INFJ">- INFJ</option>
+                                <option value="INTJ">- INTJ</option>
+                                <option value="ISTP">- ISTP</option>
+                                <option value="ISFP">- ISFP</option>
+                                <option value="INFP">- INFP</option>
+                                <option value="INTP">- INTP</option>
+                                <option value="ESTP">- ESTP</option>
+                                <option value="ESFP">- ESFP</option>
+                                <option value="ENFP">- ENFP</option>
+                                <option value="ENTP">- ENTP</option>
+                                <option value="ESTJ">- ESTJ</option>
+                                <option value="ESFJ">- ESFJ</option>
+                                <option value="ENFJ">- ENFJ</option>
+                                <option value="ENTJ">- ENTJ</option>
+
+                            </select>
                         </div>
+
                         <div class="form">
+                            <input type="text" class="form-control border-success" id="blogInputEdit" placeholder="블로그 주소">
+                        </div>
+
+
+
+                        <div class="form-content">
                             <textarea class="form-control border-success" id="contentInputEdit" rows="7" placeholder="내용"></textarea>
                         </div>
                     </div>
