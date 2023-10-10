@@ -56,6 +56,7 @@
         let title = $('#titleInput').val();
         let content = $('#contentInput').val();
         let pwd = $('#pwdInput').val();
+        let blog = $('#blogInput')
 
         if (!image || !title || !content || !pwd) {
             alert("빈칸을 채워주세요");
@@ -66,11 +67,12 @@
             image,
             title,
             content,
+            blog,
             pwd
         };
     }
 
-    
+
     docs.forEach((doc) => {
         let row = doc.data();
         let card_html = `
@@ -96,6 +98,8 @@
             let title = $('#titleInput').val();
             let content = $('#contentInput').val();
             let pwd = $('#pwdInput').val();
+            let blogUrl = $('#blogInput').val();
+            let mbti = $('#mbtiInput').val();
 
             let checkinput = checkInput();
             if (!checkinput) {
@@ -106,13 +110,15 @@
                 'image': image,
                 'title': title,
                 'content': content,
+                'blogUrl': blogUrl,
+                'mbti': mbti,
                 'pwd': pwd
             };
             await addDoc(collection(db, "members"), doc);
             alert('우리 팀에 어서와!');
             window.location.reload();
         });
-        
+
         // Edit 버튼 클릭시 동작
         $('.btn-edit').click(function () {
             // docs 로부터 데이터 가져오기
@@ -173,20 +179,20 @@
             let password = $('#pwdInputEdit').val();
             if (password == "" || password == null) {
                 alert("비밀번호를 입력하세요.")
-            }else{
+            } else {
                 let docId = $('#targetDocID').val();
                 let docSnap = await getDoc(doc(db, "members", docId));
                 let dbPwd = docSnap.data()['pwd'];
 
-                if(dbPwd === password){
+                if (dbPwd === password) {
                     await updateDoc(doc(db, "members", docId), {
                         image: $('#imageInputEdit').val(),
-                        title : $('#titleInputEdit').val(),
-                        content : $('#contentInputEdit').val()
+                        title: $('#titleInputEdit').val(),
+                        content: $('#contentInputEdit').val()
                     });
                     alert("수정 완료!");
                     window.location.reload();
-                }else{
+                } else {
                     alert("비밀번호가 일치하지 않습니다.");
                     return false;
                 }
@@ -222,10 +228,43 @@
                         <div class="form">
                             <input type="url" class="form-control" id="imageInput" placeholder="사진 이미지 url">
                         </div>
-                        <div class="form">
-                            <input type="text" class="form-control" id="titleInput" placeholder="이름 or 제목">
+
+                        <div class="name-mbti">
+                            <div class="form-name">
+                                
+                                    <input type="text" class="form-control" id="titleInput" placeholder="이름">
+                                
+                                
+                            </div>
+                            <select id="mbtiInput" class="form-select" aria-label="Mbti">
+                                <option selected>MBTI</option>
+                                <option value="ISTJ">- ISTJ</option>
+                                <option value="ISFJ">- ISFJ</option>
+                                <option value="INFJ">- INFJ</option>
+                                <option value="INTJ">- INTJ</option>
+                                <option value="ISTP">- ISTP</option>
+                                <option value="ISFP">- ISFP</option>
+                                <option value="INFP">- INFP</option>
+                                <option value="INTP">- INTP</option>
+                                <option value="ESTP">- ESTP</option>
+                                <option value="ESFP">- ESFP</option>
+                                <option value="ENFP">- ENFP</option>
+                                <option value="ENTP">- ENTP</option>
+                                <option value="ESTJ">- ESTJ</option>
+                                <option value="ESFJ">- ESFJ</option>
+                                <option value="ENFJ">- ENFJ</option>
+                                <option value="ENTJ">- ENTJ</option>
+
+                            </select>
                         </div>
+
                         <div class="form">
+                            <input type="text" class="form-control" id="blogInput" placeholder="블로그 주소">
+                        </div>
+
+
+
+                        <div class="form-content">
                             <textarea class="form-control" id="contentInput" rows="7" placeholder="내용"></textarea>
                         </div>
                     </div>

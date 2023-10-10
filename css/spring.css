@@ -84,6 +84,30 @@ body {
     
 }
 
+.name-mbti{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+
+}
+
+.form-name{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 800px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px !important;
+}
+
 .cards .card .card-img-top {
     width: 100%;
     height: auto;
@@ -106,7 +130,13 @@ body {
 }
 
 .modal-body .form {
-    margin-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.modal-body .form-content {
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 .modal-footer .btn-group .btn {
