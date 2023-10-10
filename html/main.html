@@ -31,7 +31,8 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
     import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
     import { addDoc, collection } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-    import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { doc, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: FIREBASE_API_KEY,
@@ -69,8 +70,7 @@
         };
     }
 
-
-
+    
     docs.forEach((doc) => {
         let row = doc.data();
         let card_html = `
@@ -127,8 +127,6 @@
             $('#titleInputEdit').val(title);
             $('#contentInputEdit').val(content);
 
-            cnclCardBtn
-
             // password 보이기 토글
             $('i').on('click', function () {
                 // 누른 토글 this로 인식해서 옆 가까운 노드
@@ -173,14 +171,24 @@
                 let password = $('#pwdInputEdit').val();
                 if (password == "" || password == null) {
                     alert("비밀번호를 입력하세요.")
+                }else{
+                    let docId = $('#targetDocID').val();
+                    let docSnap = await getDoc(doc(db, "members", docId));
+                    let dbPwd = docSnap.data()['pwd'];
+
+                    if(dbPwd === password){
+                        await updateDoc(doc(db, "members", docId), {
+                            image: $('#imageInputEdit').val(),
+                            title : $('#titleInputEdit').val(),
+                            content : $('#contentInputEdit').val()
+                        });
+                        alert("수정 완료!");
+                        window.location.reload();
+                    }else{
+                        alert("비밀번호가 일치하지 않습니다.");
+                        return false;
+                    }
                 }
-                /* password 파이어 베이스와 대조 하고
-
-                */
-                /* 수정 로직 추가하기
-
-                */
-                alert("수정완료.");
             });
         })
 
