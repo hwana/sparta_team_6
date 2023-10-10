@@ -62,12 +62,27 @@ body {
 
 }
 
+.card-img-top{
+
+    width: 250px !important;
+    height: 250px;
+
+    border-radius: 20px !important;
+}
+
+.card-text {
+    width: 250px;
+    height: 250px;     
+    overflow-x: auto;   
+}
+
 .cards .card .card-img-top {
     width: 100%;
     height: auto;
     max-height: 150px;
 
     object-fit: cover;
+    border-radius: 10px ;
 
 }
 
@@ -85,7 +100,7 @@ body {
 }
 
 .modal-footer .btn-group .btn {
-    margin-left: 5px;
+    margin-left: 0.1px !important; 
 }
 
 .modal-footer .btn-group .btn:first-child {
@@ -113,3 +128,4 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
