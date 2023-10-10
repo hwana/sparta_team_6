@@ -228,7 +228,7 @@ body {
 }
 
 #mbtiInput option[value="ESFP"] {
-    color: #EE82EE;
+    color: #FF8F00;
 }
 
 #mbtiInput option[value="ENFP"] {
@@ -248,11 +248,11 @@ body {
 }
 
 #mbtiInput option[value="ENFJ"] {
-    color: #808080;
+    color: #ab61ff;
 }
 
 #mbtiInput option[value="ENTJ"] {
-    color: #F5FFFA;
+    color: #6dffb6;
 }
 
 /* edit member mbti color */
@@ -294,7 +294,7 @@ body {
 }
 
 #mbtiInputEdit option[value="ESFP"] {
-    color: #EE82EE;
+    color: #FF8F00;
 }
 
 #mbtiInputEdit option[value="ENFP"] {
@@ -314,9 +314,9 @@ body {
 }
 
 #mbtiInputEdit option[value="ENFJ"] {
-    color: #808080;
+    color: #ab61ff;
 }
 
 #mbtiInputEdit option[value="ENTJ"] {
-    color: #F5FFFA;
+    color: #6dffb6;
 }
