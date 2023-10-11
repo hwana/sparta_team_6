@@ -21,14 +21,14 @@
 
 - Create
     <NEW MEMBER> 버튼을 클릭할 시에 Modal을 노출시켜 멤버 카드에 들어갈 내용을 작성할 수 있게 구현하였습니다. 이 때 비밀번호를 함께 작성하여 추후 수정/삭제에 필요한 유효성 검사 또한 고려하였습니다.
-    ![ezgif com-video-to-gif](https://github.com/JungHyunMoon/sparta_team_6/assets/120004247/d64160a7-a720-4849-bcd8-5e518b38bfe0)
+![ezgif com-video-to-gif](https://github.com/JungHyunMoon/sparta_team_6/assets/120004247/d64160a7-a720-4849-bcd8-5e518b38bfe0)
 
 
 - Read
     DB는 Firebase를 채택하여 getDocs 메소드를 통해 JSON형태로 가져와 forEach로 돌며 client에 뿌려주었습니다.
     
     Edit 버튼을 눌러 Modal창을 띄웠을때의 데이터 접근 방식은 다양한 방법을 시도해보고자 두가지 방식으로 data를 가져왔습니다. 첫 번째로는 **$(this).attr("id");**와 같은 노드 직접 접근 방식을 통해 script에 이미 담겨있는 데이터를 넘겨주었습니다. 두 번째로는 **getDoc** 메소드로 **docId**파라미터를 이용해 간단히 구현하였습니다
-    ![Read](https://github.com/JungHyunMoon/sparta_team_6/assets/120004247/3647e425-8f31-43ea-8b88-beefe2b1ff39)
+  ![Read](https://github.com/JungHyunMoon/sparta_team_6/assets/120004247/3647e425-8f31-43ea-8b88-beefe2b1ff39)
 
 - Update / Delete
     수정 및 삭제의 기능의 Modal창을 Edit 버튼을 클릭하여 노출시켜 유저가 멤버 카드를 접근하여 편리하게 편집할 수 있게 구현하였습니다. 수정과 삭제를 시도할 때 data의 고유 ID를 통해 직접 getDoc을 통한 데이터 조회로 DB에 있는 비밀번호와 유저가 입력한 비밀번호가 일치 했을 시에 프로세스가 작동할 수 있게 구현하였습니다.
