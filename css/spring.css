@@ -185,6 +185,10 @@ body {
     justify-content: space-around;
 }
 
+.eye{
+    margin-left: 10px;
+}
+
 #mbtiInput option {
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
