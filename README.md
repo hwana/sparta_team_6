@@ -11,7 +11,7 @@
 ### 디자인
 
 #### 메인 상단
-팀원들과 함께 즐겁게 코딩하는 모습을 **Gif**로 노출시켜 페이지를 꾸몄습니다<br>
+팀원들과 함께 즐겁게 코딩하는 모습을 **Gif**로 노출시켜 페이지를 꾸몄습니다<br><br>
 ![팀6 Spring](https://github.com/JungHyunMoon/sparta_team_6/assets/120004247/872d6375-4f3a-45c5-a33c-49ef1ed42264)
 
 #### Bootstrap
