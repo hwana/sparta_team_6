@@ -2,7 +2,7 @@
 - Team명 “봄”
 - 프로젝트명 : OurTeamMate
 - 프로젝트 소개 : 팀 멤버들의 자기소개를 작성하여 소개하고 팀원의 소개 글 내용 변경을 페이지에 반영할 수 있는 작업과 팀원이 사라졌을 때(?)를 위한 삭제 기능을 구현하였습니다.
-- [회고록](https://velog.io/@hwana/%EB%82%B4%EC%9D%BC%EB%B0%B0%EC%9B%80%EC%BA%A0%ED%94%84%EB%AF%B8%EB%8B%88%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-KPT-%ED%9A%8C%EA%B3%A0)
+- [회고록](https://hwana.github.io/naebaecamp/review/miniproject-review/)
 
 ## 디자인
 
